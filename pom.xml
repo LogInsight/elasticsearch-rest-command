@@ -9,11 +9,6 @@
 	<name>elasticsearch-rest-command</name>
 	<description>Restful pipeline command support plugin for Elasticsearch</description>
 	<url>http://maven.apache.org</url>
-	<scm>
-		<connection>scm:git@github.com:huangchen007/elasticsearch-rest-command.git</connection>
-		<developerConnection>scm:git@github.com:huangchen007/elasticsearch-rest-command.git</developerConnection>
-		<url>https://github.com/huangchen007/elasticsearch-rest-command</url>
-	</scm>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -24,7 +19,6 @@
 	<properties>
 		<elasticsearch.version>1.4.0</elasticsearch.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<lucene.maven.version>4.10.2</lucene.maven.version>
 	</properties>
 
 	<dependencies>
@@ -53,14 +47,6 @@
   			<version>2.3.3</version>
   			<classifier>sources</classifier>
 		</dependency>
-		<!--
-		<dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${lucene.maven.version}</version>
-            <scope>compile</scope>
-        </dependency>
--->
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
