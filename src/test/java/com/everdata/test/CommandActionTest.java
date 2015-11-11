@@ -1,34 +1,16 @@
 package com.everdata.test;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import junit.framework.TestCase;
-
 import org.apache.http.client.utils.URIBuilder;
-import org.elasticsearch.action.ActionResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.node.Node;
-import org.elasticsearch.node.NodeBuilder;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import com.everdata.command.CommandException;
-import com.everdata.parser.AST_Start;
-import com.everdata.parser.CommandParser;
-import com.everdata.parser.ParseException;
-
-import static org.junit.Assert.*;
 
 
 public class CommandActionTest{
@@ -50,6 +32,7 @@ public class CommandActionTest{
 	
 	
     @Test
+    @Ignore
     public void multiThread() {
     	Random rand = new Random();
 
