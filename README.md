@@ -2,8 +2,8 @@
 
 Build:
 
-mvn clean package
-Release artifact: rest-command-0.7.1-plugin.zip will be under target/releases/
+* mvn clean package
+* Release artifact: **rest-command-0.7.1-plugin.zip** will be under target/releases/
 
 
 v0.7.0(2014年12月2日)
