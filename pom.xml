@@ -53,18 +53,19 @@
   			<version>2.3.3</version>
   			<classifier>sources</classifier>
 		</dependency>
+		<!--
 		<dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-core</artifactId>
             <version>${lucene.maven.version}</version>
             <scope>compile</scope>
         </dependency>
+-->
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
 			<version>${elasticsearch.version}</version>
-			<scope>system</scope>
-			<systemPath>D:\xgit\elasticsearch-1.4.0\target\everdata-0.7.2.jar</systemPath>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

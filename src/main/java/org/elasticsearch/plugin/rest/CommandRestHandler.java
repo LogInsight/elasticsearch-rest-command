@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 
+import org.apache.http.entity.ContentType;
 import org.elasticsearch.rest.BytesRestResponse;
 import org.elasticsearch.rest.RestChannel;
 import org.elasticsearch.rest.RestController;
@@ -13,6 +14,8 @@ import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.action.deletebyquery.DeleteByQueryResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.bytes.BytesArray;
+import org.elasticsearch.common.bytes.BytesReference;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContent;
@@ -42,6 +45,37 @@ public class CommandRestHandler extends BaseRestHandler {
 		super(settings, controller, client);
 		controller.registerHandler(GET, "/_command", this);
 		controller.registerHandler(POST, "/_command", this);
+	}
+	
+	private static RestResponse buildRestResponse(final byte[] bytes, final int offset, 
+			final int len, final boolean threadSafe) {
+		return new RestResponse()
+		{
+			
+			@Override
+			public RestStatus status()
+			{
+				return RestStatus.OK;
+			}
+			
+			@Override
+			public String contentType()
+			{
+				return ContentType.DEFAULT_BINARY.toString();
+			}
+			
+			@Override
+			public boolean contentThreadSafe()
+			{
+				return threadSafe;
+			}
+			
+			@Override
+			public BytesReference content()
+			{
+				return new BytesArray(bytes, 0, len);
+			}
+		};
 	}
 
 	@Override
@@ -124,22 +158,20 @@ public class CommandRestHandler extends BaseRestHandler {
 					@Override
 					public void write(int b) throws IOException {
 						innerBuffer[idx++] = (byte) b;
-						if (idx == innerBuffer.length) {
-							channel.sendContinuousBytes(innerBuffer, 0, idx,
-									false);
+						if (idx == innerBuffer.length) {							
+							channel.sendResponse(buildRestResponse(innerBuffer, 0, idx, false));
 							idx = 0;
 						}
 					}
 
 					@Override
 					public void close() throws IOException {
-						if (idx > 0)
-							channel.sendContinuousBytes(innerBuffer, 0, idx,
-									true);
-						else
-							channel.sendContinuousBytes(null, 0, 0, true);
+						if (idx > 0){
+						  channel.sendResponse(buildRestResponse(innerBuffer, 0, idx, true));
+						} else {
+							channel.sendResponse(buildRestResponse(null, 0, 0, true));
+						}
 					}
-
 				}, xContent, download2);
 
 			} else if (search.joinSearchs.size() > 0) {
