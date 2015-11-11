@@ -1,5 +1,11 @@
 ##语法详情请查看rest-command.ppt
 
+Build:
+
+mvn clean package
+Release artifact: rest-command-0.7.1-plugin.zip will be under target/releases/
+
+
 v0.7.0(2014年12月2日)
 增加/_task接口和/_taskstatus/{taskid}接口，目的是可以使用spark引擎和sql语法来执行较长时间的数据计算。
 
