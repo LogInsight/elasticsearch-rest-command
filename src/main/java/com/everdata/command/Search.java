@@ -39,8 +39,6 @@ import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram.Bucket;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram.Interval;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramBuilder;
-import org.elasticsearch.search.aggregations.metrics.NumericMetricsAggregator.MultiValue;
-import org.elasticsearch.search.aggregations.metrics.NumericMetricsAggregator.SingleValue;
 import org.elasticsearch.search.aggregations.metrics.avg.Avg;
 import org.elasticsearch.search.aggregations.metrics.cardinality.Cardinality;
 import org.elasticsearch.search.aggregations.metrics.max.Max;
@@ -119,6 +117,24 @@ public class Search {
 		return indices;
 
 	}
+	
+	public static String parseStartTime(AST_Search searchTree) {
+		Object time = searchTree.getOption(Option.STARTTIME);
+		if (time != null) {
+			return (String)time;
+		} else {
+			return null;
+		}
+	}
+	
+	public static String parseEndTime(AST_Search searchTree) {
+		Object time = searchTree.getOption(Option.ENDTIME);
+		if (time != null) {
+			return (String)time;
+		} else {
+			return null;
+		}
+	}
 
 	public static String[] parseTypes(AST_Search searchTree) {
 		String[] sourceTypes = Strings.EMPTY_ARRAY;
@@ -128,7 +144,7 @@ public class Search {
 					.split(",");
 
 		return sourceTypes;
-	}
+	}	
 
 	// 全命令支持
 	public Search(CommandParser parser, Client client, ESLogger logger)
